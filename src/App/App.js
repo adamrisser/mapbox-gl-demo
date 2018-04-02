@@ -76,7 +76,7 @@ export default class MoveToMethod extends Component {
             curve: 1
           }}
 
-          containerStyle={{height: "50vh", width: "50vw" }}
+          containerStyle={{height: "100vh", width: "100vw" }}
           options={{
             moveToMethod: 'easeTo',
           }}
