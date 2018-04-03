@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import LOCATIONS from "../data";
 import Map from "../Map/Map";
 import Menu from "../Menu/Menu";
@@ -21,22 +22,40 @@ const FixedHalf = styled.section`
 const Half = styled.section`
   width: 50%;
   margin-left: auto;
+  text-align: center;
 `;
+
+const LOGO = styled.div`
+  position: fixed;
+  top: 0;
+  background: #f7f7f8 url("logo.png") center center no-repeat;
+  width: 50%;
+  height: 100px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+`;
+
+window.onbeforeunload = () => window.scrollTo(0, 0);
 
 export default class MoveToMethod extends Component {
   state = LOCATIONS["Colosseum"];
 
   handleChangeCenter = location => {
     paused = true;
-    this.setState({ ...location });
+    this.setState({
+      ...location,
+      currentLocation: location.name
+    });
   };
 
   render = () => {
-    const { center, zoom, bearing, pitch } = this.state;
-
     const onStyleLoad = map => {
+      map.scrollZoom.disable();
+      map.dragPan.disable();
+
+      paused = false;
+
       setInterval(() => {
-        if (!paused) map.setBearing(map.getBearing() + 0.15);
+        if (!paused) map.setBearing(map.getBearing() + 0.025);
       }, 10);
     };
 
@@ -52,8 +71,9 @@ export default class MoveToMethod extends Component {
           />
         </FixedHalf>
         <Half>
+          <LOGO src="/logo.png" />
+
           <Menu
-            center={center}
             handleChangeCenter={this.handleChangeCenter.bind(this)}
             LOCATIONS={LOCATIONS}
           />

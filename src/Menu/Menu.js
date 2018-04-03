@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import styled from "styled-components";
 import VisibilitySensor from "react-visibility-sensor";
 
@@ -16,36 +17,29 @@ const Wrapper = styled.section`
 
 const Title = styled.h2`
   display: block;
-  font-family: Baskerville;
+  text-align: center;
+  font-family: Baskerville Regular;
   font-size: 40px;
   margin-bottom: 20px;
+  letter-spacing: 10px;
 `;
 
 const Text = styled.p`
   display: block;
-  font-size: 20px;
-  font-family: Neue Haas Grotesk;
+  font-size: 16px;
+  font-family: Helvetica Neue;
   line-height: 30px;
   margin-bottom: 30px;
+  text-align: left;
 `;
 
-const MenuButton = ({ center, location, handleChangeCenter, LOCATIONS }) => {
-  const className =
-    LOCATIONS[location].center === center ? "location-selected" : "location";
-
-  return (
-    <div
-      className={className}
-      onClick={handleChangeCenter.bind(this, LOCATIONS[location])}
-    >
-      {location}
-    </div>
-  );
-};
-
 export default class Menu extends Component {
+  componentDidUpdate() {
+    ReactDOM.findDOMNode(this).scrollTop = 0;
+  }
+
   render = () => {
-    const { center, handleChangeCenter, LOCATIONS } = this.props;
+    const { handleChangeCenter, LOCATIONS } = this.props;
 
     return (
       <Wrapper>

@@ -13,20 +13,17 @@ export default class Map extends Component {
     return (
       <RMap
         style="mapbox://styles/arisser/cjfijaw8z3hd32rr5clkm6xcp"
+        // style='mapbox://styles/mapbox/satellite-v9'
         center={center}
         onMoveEnd={onMoveEnd}
         onStyleLoad={onStyleLoad}
         zoom={[zoom]}
         pitch={[pitch]}
         bearing={[bearing]}
-        flyToOptions={{
-          curve: 1,
-          speed: 0.3
-        }}
+        flyToOptions={{ curve: 1, speed: 0.5 }}
         containerStyle={{ height: "100vh", width: "50vw" }}
-        options={{
-          moveToMethod: "easeTo"
-        }}
+        movingMethod="flyTo"
+        interactive={false}
       >
         <Layer
           id="3d-buildings"
